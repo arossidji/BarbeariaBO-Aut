@@ -20,7 +20,7 @@ public class Cliente extends PessoaFisica implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID clienteId;
+    private Long clienteId;
 
     @OneToOne
     private Endereco endereco;

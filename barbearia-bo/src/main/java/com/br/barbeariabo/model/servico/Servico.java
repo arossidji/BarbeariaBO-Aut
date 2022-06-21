@@ -19,7 +19,7 @@ public class Servico implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID servicoId;
+    private Long servicoId;
 
     @OneToOne
     @JoinColumn(name = "funcionario_id")

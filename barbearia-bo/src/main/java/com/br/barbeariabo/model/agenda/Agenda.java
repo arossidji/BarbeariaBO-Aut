@@ -20,7 +20,7 @@ public class Agenda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID agendaId;
+    private Long agendaId;
 
     private Date data;
 

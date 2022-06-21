@@ -14,7 +14,8 @@ import java.util.UUID;
 public class Barbearia extends PessoaJuridica{
 
     @Id
-    private UUID barbeariaId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long barbeariaId;
 
     @OneToOne
     private Endereco endereco;
