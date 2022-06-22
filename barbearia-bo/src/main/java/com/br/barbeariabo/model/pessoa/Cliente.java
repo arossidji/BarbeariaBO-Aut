@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,20 +20,24 @@ public class Cliente extends PessoaFisica implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clienteId;
+
+    private String email;
 
     @OneToOne
     private Endereco endereco;
+
+    @ManyToOne
+    private Agenda agenda;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Servico> servicosUtilizado;
 
 
-    @ManyToOne
-    private Agenda agenda;
 
-    private String email;
+
+
 
 
 }

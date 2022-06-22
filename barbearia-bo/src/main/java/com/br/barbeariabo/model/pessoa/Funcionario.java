@@ -17,7 +17,7 @@ public class Funcionario extends PessoaFisica implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long funcionarioId;
 
     private String posicao;
@@ -27,10 +27,7 @@ public class Funcionario extends PessoaFisica implements Serializable {
     @OneToOne
     private Usuario usuario;
 
-    @ManyToOne
+    @OneToOne
     private Agenda agenda;
-
-    @ManyToOne
-    private Barbearia barbearia;
 
 }

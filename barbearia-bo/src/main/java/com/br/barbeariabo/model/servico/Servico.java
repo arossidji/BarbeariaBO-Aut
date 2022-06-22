@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -18,21 +19,18 @@ public class Servico implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long servicoId;
 
     @OneToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
     @Enumerated(EnumType.STRING)
     private TipoServico tipoServico;
 
+    private Date dataServico;
+
     private Double preco;
-    boolean isConcluido;
 
 }

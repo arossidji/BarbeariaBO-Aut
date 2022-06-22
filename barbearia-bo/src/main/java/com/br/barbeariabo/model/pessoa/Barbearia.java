@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Barbearia extends PessoaJuridica{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long barbeariaId;
 
     @OneToOne
@@ -22,7 +22,7 @@ public class Barbearia extends PessoaJuridica{
 
     private String telefone;
 
-    @OneToMany(mappedBy = "barbearia")
+    @OneToMany
     private List<Funcionario> funcionarios;
 
 }

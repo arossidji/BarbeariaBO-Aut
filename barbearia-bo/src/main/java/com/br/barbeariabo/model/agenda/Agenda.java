@@ -22,12 +22,8 @@ public class Agenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long agendaId;
 
-    private Date data;
-
     @OneToMany(mappedBy = "agenda", fetch = FetchType.LAZY)
     private List<Cliente> clientes;
 
-    @OneToMany(mappedBy = "agenda", fetch = FetchType.LAZY)
-    private List<Funcionario> funcionarios;
 
 }
