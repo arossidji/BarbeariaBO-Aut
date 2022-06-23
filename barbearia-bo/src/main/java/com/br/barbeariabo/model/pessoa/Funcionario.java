@@ -24,6 +24,9 @@ public class Funcionario extends PessoaFisica implements Serializable {
 
     private String descrição;
 
+    @ManyToOne
+    private Barbearia barbearia;
+
     @OneToOne
     private Usuario usuario;
 

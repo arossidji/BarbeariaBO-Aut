@@ -1,12 +1,11 @@
 package com.br.barbeariabo.controller;
 
 import com.br.barbeariabo.dto.ClienteDTO;
-import com.br.barbeariabo.model.agenda.Agenda;
 import com.br.barbeariabo.model.endereco.Endereco;
 import com.br.barbeariabo.model.pessoa.Cliente;
-import com.br.barbeariabo.model.pessoa.Funcionario;
 import com.br.barbeariabo.service.ClienteService;
 import com.br.barbeariabo.service.EnderecoService;
+import com.br.barbeariabo.service.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,9 @@ public class ClienteController {
 
     @Autowired
     EnderecoService enderecoService;
+
+    @Autowired
+    ServicoService servicoService;
 
     @PostMapping("/cadastrarCliente")
     public ResponseEntity<Object> cadastrarCliente(@RequestBody ClienteDTO clienteDTO){
@@ -51,10 +53,10 @@ public class ClienteController {
     }
 
     @GetMapping("listarTodosClientes")
-    public ResponseEntity<Page<Cliente>> listarTodosClientes(
+    public ResponseEntity<Page<ClienteDTO>> listarTodosClientes(
             @PageableDefault(page = 0,size = 10, sort = "clienteId", direction = Sort.Direction.ASC) Pageable pageable){
 
-        Page<Cliente> clientePage = service.listarTodosClientes(pageable);
+        Page<ClienteDTO> clientePage = service.listarTodosClientes(pageable);
         if (clientePage.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clientePage);
         }

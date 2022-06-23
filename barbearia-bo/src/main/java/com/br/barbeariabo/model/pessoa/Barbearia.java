@@ -22,7 +22,7 @@ public class Barbearia extends PessoaJuridica{
 
     private String telefone;
 
-    @OneToMany
+    @OneToMany(mappedBy = "barbearia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Funcionario> funcionarios;
 
 }

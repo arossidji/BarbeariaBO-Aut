@@ -3,11 +3,15 @@ package com.br.barbeariabo.model.servico;
 import com.br.barbeariabo.enumerator.TipoServico;
 import com.br.barbeariabo.model.pessoa.Cliente;
 import com.br.barbeariabo.model.pessoa.Funcionario;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -23,13 +27,16 @@ public class Servico implements Serializable {
     private Long servicoId;
 
     @OneToOne
-    @JoinColumn(name = "funcionario_id")
+    @JoinColumn(name = "funcionarioId")
     private Funcionario funcionario;
 
     @Enumerated(EnumType.STRING)
     private TipoServico tipoServico;
 
-    private Date dataServico;
+    private LocalDateTime dataServico;
+
+    @ManyToOne
+    private Cliente cliente;
 
     private Double preco;
 
