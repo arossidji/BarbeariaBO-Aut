@@ -1,9 +1,11 @@
 package com.br.barbeariabo.service.impl;
 
 import com.br.barbeariabo.dto.AgendamentoClienteDTO;
-import com.br.barbeariabo.model.agenda.Agenda;
+import com.br.barbeariabo.dto.ServicoDTO;
+import com.br.barbeariabo.exceptions.ClienteException;
+import com.br.barbeariabo.exceptions.FuncionarioException;
 import com.br.barbeariabo.model.pessoa.Cliente;
-import com.br.barbeariabo.repository.AgendaRepository;
+import com.br.barbeariabo.model.pessoa.Funcionario;
 import com.br.barbeariabo.service.AgendaService;
 import com.br.barbeariabo.service.ClienteService;
 import com.br.barbeariabo.service.FuncionarioService;
@@ -17,35 +19,34 @@ import java.util.Optional;
 public class AgendaServiceImpl implements AgendaService {
 
     @Autowired
-    AgendaRepository agendaRepository;
-
-    @Autowired
     ServicoService servicoService;
 
     @Autowired
-    ClienteService clienteServiceservice;
+    ClienteService clienteService;
 
     @Autowired
     FuncionarioService funcionarioService;
 
     @Override
-    public void agendarServico(AgendamentoClienteDTO agenda) {
+    public void agendarServico(AgendamentoClienteDTO agenda) throws Exception, ClienteException, FuncionarioException {
+         Optional<Cliente> clienteOptional = clienteService.findClienteById(agenda.getIdCliente());
+        Optional<Funcionario> funcionarioOptional = funcionarioService.findFuncionarioById(agenda.getIdFuncionario());
+        if (!clienteOptional.isPresent())
+            throw new ClienteException();
+        if (!funcionarioOptional.isPresent())
+            throw new FuncionarioException();
 
-
-
-
-
+        servicoService.cadastrarServico(montarServicoAgendamento(agenda));
     }
 
-    @Override
-    public Optional<Agenda> findAgendaById(Long id) {
-        return agendaRepository.findById(id);
-    }
+    private ServicoDTO montarServicoAgendamento(AgendamentoClienteDTO agenda){
+        ServicoDTO servicoDTO = new ServicoDTO();
+        servicoDTO.setFuncionarioId(agenda.getIdFuncionario());
+        servicoDTO.setClienteId(agenda.getIdCliente());
+        servicoDTO.setTipoServico(agenda.getServicoAgendar());
+        servicoDTO.setDataServico(agenda.getDiaAgendamento());
 
-    @Override
-    public void remover(Agenda agenda) {
-        agendaRepository.delete(agenda);
+        return servicoDTO;
     }
-
 
 }

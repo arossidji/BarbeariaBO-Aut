@@ -1,6 +1,5 @@
 package com.br.barbeariabo.model.pessoa;
 
-import com.br.barbeariabo.model.agenda.Agenda;
 import com.br.barbeariabo.model.usuario.Usuario;
 import lombok.Data;
 
@@ -29,8 +28,5 @@ public class Funcionario extends PessoaFisica implements Serializable {
 
     @OneToOne
     private Usuario usuario;
-
-    @OneToOne
-    private Agenda agenda;
 
 }

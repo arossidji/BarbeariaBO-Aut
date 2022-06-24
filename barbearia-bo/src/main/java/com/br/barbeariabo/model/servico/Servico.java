@@ -40,4 +40,7 @@ public class Servico implements Serializable {
 
     private Double preco;
 
+    @Column(name = "isAgendado", columnDefinition = "boolean default false")
+    private boolean isAgendado;
+
 }

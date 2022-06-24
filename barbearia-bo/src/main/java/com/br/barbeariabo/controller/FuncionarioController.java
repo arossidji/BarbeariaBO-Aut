@@ -1,7 +1,6 @@
 package com.br.barbeariabo.controller;
 
 import com.br.barbeariabo.dto.FuncionarioDTO;
-import com.br.barbeariabo.model.agenda.Agenda;
 import com.br.barbeariabo.model.pessoa.Funcionario;
 import com.br.barbeariabo.service.AgendaService;
 import com.br.barbeariabo.service.FuncionarioService;
@@ -39,16 +38,12 @@ public class FuncionarioController {
     @DeleteMapping("/removerFuncionario/{funcionarioId}")
     public ResponseEntity<Object> removerFuncionario(@PathVariable(value = "funcionarioId") Long id){
         Optional<Funcionario> funcionarioOptional = service.findFuncionarioById(id);
+
         if (funcionarioOptional.isPresent()){
-
-            Optional<Agenda> agendaOptional = agendaService.findAgendaById(funcionarioOptional.get().getAgenda().getAgendaId());
-
-            if (agendaOptional.isPresent()) {
                 service.remover(funcionarioOptional.get());
-                agendaService.remover(agendaOptional.get());
                 return ResponseEntity.status(HttpStatus.OK).body("Funcionario Excluido e agenda esvaziada!");
-            }
         }
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado!");
     }
 

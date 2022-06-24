@@ -38,9 +38,15 @@ public class ServicoServiceImpl implements ServicoService {
         Optional<Cliente> clienteOptional = clienteRepository.findById(servicoDTO.getClienteId());
         Optional<Funcionario> funcionarioOptional = funcionarioRepository.findById(servicoDTO.getFuncionarioId());
 
-        servico.setDataServico(LocalDateTime.now());
+        if (servicoDTO.getDataServico() == null){
+            servico.setDataServico(LocalDateTime.now());
+        } else {
+            servico.setDataServico(servicoDTO.getDataServico());
+            servico.setAgendado(Boolean.TRUE);
+        }
+
         servico.setTipoServico(servicoDTO.getTipoServico());
-        servico.setPreco(servicoDTO.getPreco());
+        servico.setPreco(servicoDTO.getTipoServico().getValorServico());
 
         if (clienteOptional.isPresent() && funcionarioOptional.isPresent()) {
             servico.setCliente(clienteOptional.get());

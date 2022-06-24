@@ -1,6 +1,5 @@
 package com.br.barbeariabo.model.pessoa;
 
-import com.br.barbeariabo.model.agenda.Agenda;
 import com.br.barbeariabo.model.endereco.Endereco;
 import com.br.barbeariabo.model.servico.Servico;
 import lombok.Data;
@@ -26,9 +25,6 @@ public class Cliente extends PessoaFisica implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Endereco endereco;
-
-    @ManyToOne
-    private Agenda agenda;
 
     @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
     private List<Servico> servicos;
