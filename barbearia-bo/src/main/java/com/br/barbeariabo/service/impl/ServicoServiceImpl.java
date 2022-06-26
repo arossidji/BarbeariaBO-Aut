@@ -1,6 +1,7 @@
 package com.br.barbeariabo.service.impl;
 
 import com.br.barbeariabo.dto.ServicoDTO;
+import com.br.barbeariabo.enumerator.TipoServico;
 import com.br.barbeariabo.model.pessoa.Cliente;
 import com.br.barbeariabo.model.pessoa.Funcionario;
 import com.br.barbeariabo.model.servico.Servico;
@@ -13,9 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -79,6 +80,15 @@ public class ServicoServiceImpl implements ServicoService {
     @Override
     public Optional<Servico> findServicoById(Long id) {
         return servicoRepository.findById(id);
+    }
+
+    @Override
+    public List<String> listarTipoServicos() {
+        List<String> listaTipoServicos = new ArrayList<>();
+        for (TipoServico tipoServico : TipoServico.values()) {
+            listaTipoServicos.add("Codigo: " +tipoServico.name()+ " || " + tipoServico.toString());
+        }
+        return listaTipoServicos;
     }
 
 

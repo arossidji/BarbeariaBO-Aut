@@ -1,8 +1,6 @@
 package com.br.barbeariabo.controller;
 
 import com.br.barbeariabo.dto.ServicoDTO;
-import com.br.barbeariabo.model.endereco.Endereco;
-import com.br.barbeariabo.model.pessoa.Cliente;
 import com.br.barbeariabo.model.servico.Servico;
 import com.br.barbeariabo.service.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -53,6 +52,11 @@ public class ServicoController {
             return ResponseEntity.status(HttpStatus.OK).body("Servico removido com sucesso!");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Servico não encontrado!");
+    }
+
+    @GetMapping("listarTiposServicos")
+    public ResponseEntity<List<String>> listarTiposServicos(){
+        return ResponseEntity.status(HttpStatus.OK).body(servicoService.listarTipoServicos());
     }
 
 

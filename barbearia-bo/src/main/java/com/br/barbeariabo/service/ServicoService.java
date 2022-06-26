@@ -5,6 +5,7 @@ import com.br.barbeariabo.model.servico.Servico;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ServicoService {
@@ -16,6 +17,8 @@ public interface ServicoService {
     Page<ServicoDTO> listarServicos(Pageable pageable);
 
     Optional<Servico> findServicoById(Long id);
+
+    List<String> listarTipoServicos();
 
 
 }

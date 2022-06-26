@@ -1,5 +1,9 @@
 package com.br.barbeariabo.enumerator;
 
+import org.aspectj.apache.bcel.classfile.Unknown;
+
+import java.util.stream.Stream;
+
 public enum TipoServico {
 
     CORTE("Corte", 15.00),
@@ -9,6 +13,7 @@ public enum TipoServico {
 	LUZES("Luzes", 70.00),
 	ALISAMENTO("Alisamento", 50.00),
 	PINTURA("Pintura", 40.00);
+
 
 
     TipoServico(String desc, double v){
@@ -23,5 +28,11 @@ public enum TipoServico {
         return this.description;
     }
     public Double getValorServico(){return this.valorServico;}
+
+    @Override
+    public String toString() {
+        return  "Descrição do Serviço: "+description +" ||  Valor: R$"+valorServico;
+    }
+
 
 }
