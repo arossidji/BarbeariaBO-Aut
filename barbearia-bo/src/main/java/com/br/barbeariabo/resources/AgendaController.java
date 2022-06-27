@@ -1,7 +1,6 @@
-package com.br.barbeariabo.controller;
+package com.br.barbeariabo.resources;
 
 import com.br.barbeariabo.dto.AgendamentoClienteDTO;
-import com.br.barbeariabo.dto.ClienteDTO;
 import com.br.barbeariabo.exceptions.ClienteException;
 import com.br.barbeariabo.exceptions.FuncionarioException;
 import com.br.barbeariabo.service.AgendaService;
@@ -22,6 +21,7 @@ public class AgendaController {
         agendaService.agendarServico(agendaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Servico Agendado!");
     }
+
 
     @GetMapping("/listarAgendaCliente/{periodo}")
     public ResponseEntity<Object> agendarCliente(@PathVariable(value = "periodo") int periodo){

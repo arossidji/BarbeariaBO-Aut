@@ -1,4 +1,4 @@
-package com.br.barbeariabo.controller;
+package com.br.barbeariabo.resources;
 
 import com.br.barbeariabo.dto.FuncionarioDTO;
 import com.br.barbeariabo.model.pessoa.Funcionario;

@@ -74,6 +74,42 @@ public class AgendaServiceImpl implements AgendaService {
         LocalDateTime dtInicio = dia.toLocalDate().atTime(LocalTime.MIN);
         LocalDateTime dtFim = dia.toLocalDate().atTime(LocalTime.MAX);
 
+        return obterDadosAgendamentos(dtInicio,dtFim);
+    }
+
+    private List<AgendaRetornoDTO> listarAgendaPorSemana(){
+        LocalDate dia = LocalDate.now();
+        LocalDate inicio = dia.with(DayOfWeek.MONDAY);
+        LocalDate fim = dia.with(DayOfWeek.SUNDAY);
+
+        LocalDateTime dtInicio = inicio.atTime(00,00,00);
+        LocalDateTime dtFim = fim.atTime(23,59,59);
+
+        return obterDadosAgendamentos(dtInicio,dtFim);
+    };
+    private List<AgendaRetornoDTO> listarAgendaPorMes(){
+        LocalDate dia = LocalDate.now();
+        LocalDate inicio = dia.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate fim = dia.with(TemporalAdjusters.lastDayOfMonth());
+
+        LocalDateTime dtInicio = inicio.atTime(00,00,00);
+        LocalDateTime dtFim = fim.atTime(23,59,59);
+
+        return obterDadosAgendamentos(dtInicio,dtFim);
+
+    };
+    private List<AgendaRetornoDTO> listarAgendaPorAno(){
+        LocalDate dia = LocalDate.now();
+        LocalDate inicio = dia.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate fim = dia.with(TemporalAdjusters.lastDayOfYear());
+
+        LocalDateTime dtInicio = inicio.atTime(00,00,00);
+        LocalDateTime dtFim = fim.atTime(23,59,59);
+
+        return obterDadosAgendamentos(dtInicio,dtFim);
+    };
+
+    private List<AgendaRetornoDTO> obterDadosAgendamentos(LocalDateTime dtInicio, LocalDateTime dtFim){
         List<Servico> servicos = servicoRepository.obterAgendaServicoPorPeriodo(dtInicio,dtFim);
         if (servicos.isEmpty()){
             List<AgendaRetornoDTO> listaAgenda = new ArrayList<AgendaRetornoDTO>();
@@ -86,68 +122,6 @@ public class AgendaServiceImpl implements AgendaService {
                 )
         ).collect(Collectors.toList());
     }
-
-    private List<AgendaRetornoDTO> listarAgendaPorSemana(){
-        LocalDate dia = LocalDate.now();
-        LocalDate inicio = dia.with(DayOfWeek.MONDAY);
-        LocalDate fim = dia.with(DayOfWeek.SUNDAY);
-
-        LocalDateTime dtInicio = inicio.atTime(00,00,00);
-        LocalDateTime dtFim = fim.atTime(23,59,59);
-
-        List<Servico> servicos = servicoRepository.obterAgendaServicoPorPeriodo(dtInicio,dtFim);
-        if (servicos.isEmpty()){
-            List<AgendaRetornoDTO> listaAgenda = new ArrayList<AgendaRetornoDTO>();
-            return listaAgenda;
-        }
-        return servicos.stream().map(servico -> new AgendaRetornoDTO(servico.getFuncionario().getNome(),
-                        servico.getCliente().getNome(),
-                        servico.getTipoServico().getDescription(),
-                        servico.getDataServico()
-                )
-        ).collect(Collectors.toList());
-    };
-    private List<AgendaRetornoDTO> listarAgendaPorMes(){
-        LocalDate dia = LocalDate.now();
-        LocalDate inicio = dia.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDate fim = dia.with(TemporalAdjusters.lastDayOfMonth());
-
-        LocalDateTime dtInicio = inicio.atTime(00,00,00);
-        LocalDateTime dtFim = fim.atTime(23,59,59);
-
-        List<Servico> servicos = servicoRepository.obterAgendaServicoPorPeriodo(dtInicio,dtFim);
-        if (servicos.isEmpty()){
-            List<AgendaRetornoDTO> listaAgenda = new ArrayList<AgendaRetornoDTO>();
-            return listaAgenda;
-        }
-        return servicos.stream().map(servico -> new AgendaRetornoDTO(servico.getFuncionario().getNome(),
-                        servico.getCliente().getNome(),
-                        servico.getTipoServico().getDescription(),
-                        servico.getDataServico()
-                )
-        ).collect(Collectors.toList());
-
-    };
-    private List<AgendaRetornoDTO> listarAgendaPorAno(){
-        LocalDate dia = LocalDate.now();
-        LocalDate inicio = dia.with(TemporalAdjusters.firstDayOfYear());
-        LocalDate fim = dia.with(TemporalAdjusters.lastDayOfYear());
-
-        LocalDateTime dtInicio = inicio.atTime(00,00,00);
-        LocalDateTime dtFim = fim.atTime(23,59,59);
-
-        List<Servico> servicos = servicoRepository.obterAgendaServicoPorPeriodo(dtInicio,dtFim);
-        if (servicos.isEmpty()){
-            List<AgendaRetornoDTO> listaAgenda = new ArrayList<AgendaRetornoDTO>();
-            return listaAgenda;
-        }
-        return servicos.stream().map(servico -> new AgendaRetornoDTO(servico.getFuncionario().getNome(),
-                        servico.getCliente().getNome(),
-                        servico.getTipoServico().getDescription(),
-                        servico.getDataServico()
-                )
-        ).collect(Collectors.toList());
-    };
 
 
     private ServicoDTO montarServicoAgendamento(AgendamentoClienteDTO agenda){
@@ -159,7 +133,5 @@ public class AgendaServiceImpl implements AgendaService {
 
         return servicoDTO;
     }
-
-
 
 }
