@@ -26,7 +26,7 @@ public class Funcionario extends PessoaFisica implements Serializable {
     @ManyToOne
     private Barbearia barbearia;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
 
 }

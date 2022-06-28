@@ -6,4 +6,6 @@ public class ClienteException extends Exception {
         super("Cliente não encontrado, favor cadastrar!");
     }
 
+
+
 }
