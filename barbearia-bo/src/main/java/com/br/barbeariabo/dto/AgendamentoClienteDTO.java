@@ -16,7 +16,6 @@ public class AgendamentoClienteDTO {
     @NotNull
     Long idFuncionario;
 
-    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     LocalDateTime diaAgendamento;
 
